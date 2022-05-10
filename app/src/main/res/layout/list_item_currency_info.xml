@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="data"
+            type="com.example.currencylist.data.CurrencyInfo" />
+
+        <variable
+            name="clickListener"
+            type="com.example.currencylist.IItemClickListener"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:onClick="@{() -> clickListener.onItemClick(data)}"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_circle_gray"
+            android:text="@{String.valueOf(data.symbol.charAt(0))}"
+            android:textColor="@color/white"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/currency_name"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@{data.name}"
+            android:gravity="center_vertical"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/currency_symbol"
+            app:layout_constraintStart_toEndOf="@+id/icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/currency_symbol"
+            android:layout_width="50dp"
+            android:layout_height="0dp"
+            android:text="@{data.symbol}"
+            android:gravity="center"
+            android:textAlignment="textEnd"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/right_arrow"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/right_arrow"
+            android:layout_width="24dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_arrow_right"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

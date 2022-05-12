@@ -2,13 +2,12 @@ package com.example.currencylist.data.repository
 
 import com.example.currencylist.data.CurrencyInfo
 import com.example.currencylist.data.Resource
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class LocalDataSource @Inject constructor(
+    private val parserHelper: ParserHelper
 ) : ILocalDataSource {
     private val currencyInfoString = "[\n" +
             "  {\n" +
@@ -84,8 +83,7 @@ class LocalDataSource @Inject constructor(
             "]"
 
     override fun getCurrencyInfoList(): Flow<Resource<List<CurrencyInfo>>> = flow {
-        val currencyType = object : TypeToken<List<CurrencyInfo>>() {}.type
-        val list = Gson().fromJson<List<CurrencyInfo>>(currencyInfoString, currencyType)
+        val list = parserHelper.parseListObject<CurrencyInfo>(currencyInfoString)
         emit(Resource.Success(list))
     }
 }
